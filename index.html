@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script type="text/javascript"><!--
+    
+      function gasFailure(){
+        alert("実行に失敗しました．時間をおいて再実行してください．");
+      }
+      
+      function execTrans(){
+        
+        let text = document.getElementById("input").value;
+        
+        google.script.run.withSuccessHandler(gasSuccess)
+                         .withFailureHandler(gasFailure)
+                         .translateW(text,"ja","en");
+        function gasSuccess(result){
+          document.getElementById("translated"  ).innerHTML = result[0];
+          document.getElementById("retranslated").innerHTML = result[1];
+        }
+      }
+      
+      
+      
+    --></script>
+    
+    <style type="text/css"><!--
+    
+    @import url('https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap');
+    body{
+      margin:0;
+      padding:0;
+      font-family: 'Sawarabi Mincho', sans-serif;
+    }
+    h1{
+      margin:0;
+      padding:0;
+      font-size:1.5em;
+    }
+    h2{
+      margin:0;
+      padding:0;
+      font-size:1.2em;
+    }
+    textarea{
+      
+      font-family: 'Sawarabi Mincho', sans-serif;
+    }
+    --></style>
+  </head>
+  <body>
+  <h1>翻やくん</h1>
+    <h2>入力</h2>
+    <textarea id="input" oninput="execTrans()">こんにちは．</textarea>
+    
+    <h2>翻訳結果</h2>
+    <div id="translated">Hello.</div>
+    
+    <h2>再翻訳結果</h2>
+    <div id="retranslated">こんにちは．</div>
+  </body>
+</html>
+
+
