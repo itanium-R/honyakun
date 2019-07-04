@@ -2,6 +2,65 @@
 <html>
   <head>
     <base target="_top">
+    
+    <style type="text/css"><!--
+    
+    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Sawarabi+Mincho&display=swap');
+    
+    body{
+      margin:0;
+      padding:0;
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      max-width:100%;
+    }
+    h1{
+      margin: .6em 0 .6em 0;
+      padding:0;
+      font-size:1.5em;
+    }
+    h2{
+      margin: .5em 0 .5em 0;
+      padding:0;
+      font-size:1.2em;
+    }
+    input[type="button"]{
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      background:#FFF;
+      border:solid 1px #AAA;
+      border-radius: .2em;
+    }
+    #recButton{
+      width:10em;
+      max-width:90%;
+      display:none;
+    }
+    textarea{
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      resize: none;
+      width : 30em;
+      height: 6em;
+      max-width:90%;
+      border:solid 1px #AAA;
+      border-radius: .5em;
+    }
+    div{
+      width : 30em;
+      max-width:90%;
+      height: 6em;
+      
+      background:#FFF;
+      border:solid 1px #AAA;
+      border-radius: .5em;
+    }
+    section{
+      margin:auto;
+      padding:0;
+      width:20em;
+      max-width:94%;
+      
+    }
+    --></style>
+
     <script type="text/javascript"><!--
     
       function gasFailure(){
@@ -31,6 +90,7 @@
       recognition.onresult = function(event){
         if(event.results.length > 0){
           document.getElementById("input").value = event.results[0][0].transcript;
+          document.getElementById("recButton").value = "音声入力";
           execTrans();
         }else{
           document.getElementById("recButton").value = "認識失敗...";
@@ -52,71 +112,19 @@
         recognition.start();
         document.getElementById("recButton").value ="マイク入力許可してください";
       }
-    
-      
-    --></script>
-    
-    <style type="text/css"><!--
-    
-    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Sawarabi+Mincho&display=swap');
-    
-    body{
-      margin:0;
-      padding:0;
-      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
-      max-width:100%;
-    }
-    h1{
-      margin: .6em 0 .6em 0;
-      padding:0;
-      font-size:1.5em;
-    }
-    h2{
-      margin: .5em 0 .5em 0;
-      padding:0;
-      font-size:1.2em;
-    }
-    input[type="button"]{
-      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
-      width:10em;
-      max-width:90%;
-      background:#FFF;
-      border:solid 1px #AAA;
-      border-radius: .2em;
-    }
-    textarea{
-      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
-      resize: none;
-      width : 30em;
-      height: 6em;
-      max-width:90%;
-      border:solid 1px #AAA;
-      border-radius: .5em;
-    }
-    div{
-      width : 30em;
-      max-width:90%;
-      height: 6em;
-      
-      background:#FFF;
-      border:solid 1px #AAA;
-      border-radius: .5em;
-    }
-    section{
-      margin:auto;
-      padding:0;
-      width:20em;
-      max-width:94%;
-      
-    }
-    --></style>
-  </head>
+      --></script>
+      </head>
   <body>
   <section>
   <h1>再翻やくん</h1>
     <h2>入力
-    <input type="button" id="recButton" value="音声認識" onclick="micRecStart()"></h2>
+    <input type="button" id="recButton" value="音声入力" onclick="micRecStart()"></h2>
+    <script type="text/javascript"><!-- // Chromeなら表示
+      if(window.navigator.userAgent.indexOf('Chrome')>=0)
+        document.getElementById("recButton").style.display = "inline-block";
+    --></script>
     <textarea id="input" oninput="execTrans()">こんにちは．</textarea>
+    
     
     <h2>翻訳結果</h2>
     <textarea id="translated"   readonly>Hello.</textarea>
