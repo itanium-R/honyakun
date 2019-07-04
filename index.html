@@ -25,40 +25,105 @@
       
     --></script>
     
+    <script type="text/javascript"><!--
+      var recognition = new webkitSpeechRecognition();
+      recognition.lanh = "ja-JP";
+      recognition.onresult = function(event){
+        if(event.results.length > 0){
+          document.getElementById("input").value = event.results[0][0].transcript;
+          execTrans();
+        }else{
+          document.getElementById("recButton").value = "認識失敗...";
+        }
+        recognition.stop();
+      }
+      recognition.onaudiostart = function(){
+        document.getElementById("recButton").value ="音声入力中...";
+      }
+      recognition.onspeechstart = function(){
+        document.getElementById("recButton").value ="音声認識中...";
+      }
+      recognition.onend = function(){
+        if(document.getElementById("recButton").value =="音声認識中...")
+          document.getElementById("recButton").value = "認識失敗...";
+      }
+    
+      function micRecStart(){
+        recognition.start();
+        document.getElementById("recButton").value ="マイク入力許可してください";
+      }
+    
+      
+    --></script>
+    
     <style type="text/css"><!--
     
-    @import url('https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Sawarabi+Mincho&display=swap');
+    
     body{
       margin:0;
       padding:0;
-      font-family: 'Sawarabi Mincho', sans-serif;
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      max-width:100%;
     }
     h1{
-      margin:0;
+      margin: .6em 0 .6em 0;
       padding:0;
       font-size:1.5em;
     }
     h2{
-      margin:0;
+      margin: .5em 0 .5em 0;
       padding:0;
       font-size:1.2em;
     }
+    input[type="button"]{
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      width:10em;
+      max-width:90%;
+      background:#FFF;
+      border:solid 1px #AAA;
+      border-radius: .2em;
+    }
     textarea{
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      resize: none;
+      width : 30em;
+      height: 6em;
+      max-width:90%;
+      border:solid 1px #AAA;
+      border-radius: .5em;
+    }
+    div{
+      width : 30em;
+      max-width:90%;
+      height: 6em;
       
-      font-family: 'Sawarabi Mincho', sans-serif;
+      background:#FFF;
+      border:solid 1px #AAA;
+      border-radius: .5em;
+    }
+    section{
+      margin:auto;
+      padding:0;
+      width:20em;
+      max-width:94%;
+      
     }
     --></style>
   </head>
   <body>
-  <h1>翻やくん</h1>
-    <h2>入力</h2>
+  <section>
+  <h1>再翻やくん</h1>
+    <h2>入力
+    <input type="button" id="recButton" value="音声認識" onclick="micRecStart()"></h2>
     <textarea id="input" oninput="execTrans()">こんにちは．</textarea>
     
     <h2>翻訳結果</h2>
-    <div id="translated">Hello.</div>
+    <textarea id="translated"   readonly>Hello.</textarea>
     
     <h2>再翻訳結果</h2>
-    <div id="retranslated">こんにちは．</div>
+    <textarea id="retranslated" readonly>こんにちは．</textarea>
+  </section>
   </body>
 </html>
 

@@ -1,6 +1,6 @@
 function doGet() {
     return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('翻やくん')
+    .setTitle('再翻やくん')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
